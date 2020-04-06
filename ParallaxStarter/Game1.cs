@@ -206,42 +206,43 @@ namespace ParallaxStarter
                 }
             }*/
 
-            if (bulletLayer.Sprites.Count >= 0 && enemyLayer.Sprites.Count() >= 0)
-            {
-                for (int i = 0; i < bulletLayer.Sprites.Count; i++)
+            
+                for (int i = 0; i < bulletLayer.Sprites.Count ; i++)
                 {
-                    for (int j = 0; j < enemyLayer.Sprites.Count; j++)
+                    for (int j = 0; j < enemyLayer.Sprites.Count ; j++)
+                    {
+                    if (bulletLayer.Sprites.Count > 0 && enemyLayer.Sprites.Count() > 0)
                     {
                         laser tempL = (laser)bulletLayer.Sprites[i];
                         Enemy tempE = (Enemy)enemyLayer.Sprites[j];
                         if (tempL.bounds.Intersects(tempE.bounds))
                         {
-                            bulletLayer.Sprites.Remove(tempL);
+                            bulletLayer.Sprites.RemoveAt(i);
 
-                            enemyLayer.Sprites.Remove(tempE);
-                            if (i != 0) { i -= 1; }
-                            if (j != 0) { j -= 1; }
-                            
+                            enemyLayer.Sprites.RemoveAt(j);
+                            if (i > 0) { i -= 1; }
+                            if (j > 0) { j -= 1; }
+
                             score += 20;
 
                         }
-                        else
-                        {
+                        
                             if (tempE.bounds.X <= player.Position.X - 200)
                             {
                                 score -= 10;
-                                enemyLayer.Sprites.Remove(tempE);
-                                if (j != 0) { j -= 1; }
+                                enemyLayer.Sprites.RemoveAt(j);
+                                if (j > 0) { j -= 1; }
                             }
                             if (tempL.bounds.X >= player.Position.X + 800)
                             {
-                                bulletLayer.Sprites.Remove(tempL);
-                                if (i != 0) { i -= 1; }
+                                bulletLayer.Sprites.RemoveAt(i);
+                                if (i > 0) { i -= 1; }
                             }
-                        }
+                        
+                    }
                     }
                 }
-            }
+            
 
             // TODO: Add your update logic here
             //player.Update(gameTime);
